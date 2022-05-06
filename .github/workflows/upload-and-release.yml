@@ -46,7 +46,6 @@ jobs:
         with:
           name: sc-report.pdf
           path: reports
-
       - name: Setup node
         uses: actions/setup-node@v2
         with:
