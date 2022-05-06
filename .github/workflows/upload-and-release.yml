@@ -18,25 +18,28 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%d-%m-%Y')"
 
-      - name: Prepare environment
-        run: |
-          mkdir reports
-
       - name: Generate SC report PDF
         uses: xu-cheng/latex-action@v2
         with:
           working_directory: "./src"
           root_file: "index.tex"
+      
+      - name: Change report name
+        run: |
+          mv ./src/index.pdf ./src/SCReport.pdf
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: sc-report.pdf
-          path: ./src/index.pdf
+          name: sc-report
+          path: ./src/SCReport.pdf
 
   release:
     runs-on: ubuntu-latest
     needs: upload-artifact
+    permissions:
+      actions: write
+      issues: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -44,7 +47,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: sc-report.pdf
+          name: sc-report
           path: reports
       - name: Setup node
         uses: actions/setup-node@v2
