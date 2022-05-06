@@ -23,9 +23,17 @@ jobs:
           mkdir reports
 
       - name: Generate SC report PDF
-        uses: closoco/pdflatex-action@v1.0.0
+        # uses: closoco/pdflatex-action@v1.0.0
+        # with:
+        #   texFile: ./src/index.tex
+        uses: xu-cheng/latex-action@v2
         with:
-          texFile: ./src/index.tex
+          working_directory: "./src"
+          root_file: "index.tex"
+      - run: |
+          ls 
+          cd ./src
+          ls
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
