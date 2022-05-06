@@ -44,7 +44,7 @@ jobs:
           name: sc-report.pdf
           path: reports
       - run: |
-          "ls ./reports"
+          ls
       - name: Setup node
         uses: actions/setup-node@v2
         with:
